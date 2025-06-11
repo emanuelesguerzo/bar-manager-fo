@@ -48,9 +48,36 @@ function OrderPage() {
     };
 
     // Rimozione dal carrello
-    const handleRemoveFromCart = (id) => {
-        setCart(prevCart => prevCart.filter(item => item.id !== id));
-    };
+    const handleRemoveFromCart = (idToRemove) => {
+    setCart(prevCart => {
+
+        // Trova l'indice del prodotto nel carrello
+        const itemIndex = prevCart.findIndex(item => item.id === idToRemove);
+
+        // Crea una copia dell'array del carrello
+        const newCart = [...prevCart];
+
+        // Crea una copia dell'oggetto del prodotto che vogliamo modificare
+        const itemToUpdate = { ...newCart[itemIndex] };
+
+        // Decrementa la quantità dell'articolo di uno.
+        itemToUpdate.quantity -= 1;
+
+        // Controlla se la quantità del prodotto e' scesa a zero
+        if (itemToUpdate.quantity <= 0) {
+
+            // Se la quantità e' zero o meno, filtra il carrello per rimuovere completamente l'articolo.
+            return newCart.filter(item => item.id !== idToRemove);
+
+        } else {
+
+            // Se la quantità e' maggiore di zero aggiorna l'articolo
+            newCart[itemIndex] = itemToUpdate;
+            return newCart;
+            
+        }
+    });
+};;
 
     // Invio ordine al backend
     const handleSubmit = () => {
@@ -104,11 +131,6 @@ function OrderPage() {
     // Calcolo numero totale prodotti nel carrello
     const cartCount = cart.reduce((sum, item) => {
         return sum + item.quantity; 
-    }, 0);
-
-    // Calcola il prezzo totale del carrello
-    const total = cart.reduce((sum, item) => {
-        return sum + item.price * item.quantity; 
     }, 0);
 
     return (

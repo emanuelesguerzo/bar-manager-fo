@@ -2,7 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function CartModal({ show, cart, onClose, onSubmit, onRemove }) {
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    
+    // Calcola il prezzo totale del carrello
+    const total = cart.reduce((sum, item) => {
+        return sum + item.price * item.quantity; 
+    }, 0);
 
     return (
         <div
@@ -44,7 +48,7 @@ function CartModal({ show, cart, onClose, onSubmit, onRemove }) {
                         </p>
                     </div>
                     <div className="modal-footer">
-                        <button className="btn reset-btn" onClick={() => setShowCartModal(false)}>
+                        <button className="btn reset-btn" onClick={onClose}>
                             Annulla
                         </button>
                         <button className="btn send-btn" onClick={onSubmit}>
