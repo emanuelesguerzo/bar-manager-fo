@@ -1,0 +1,142 @@
+/* CUSTOM PROPERTIES */
+:root {
+    --main-color: #daa520;
+    --sub-text-color: #ffffff;
+    --body-bg-color: #1a1a1a;
+    --body-bg-color2: #0f0f0f;
+    --card-bg-color: #151515;
+    --accordion-body: #222222;
+}
+/* #c9aa4e */
+
+body {
+    background: linear-gradient(to bottom, var(--body-bg-color), var(--body-bg-color2) );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+h1 {
+    font-family: "Edu VIC WA NT Hand Pre", cursive;
+    word-spacing: 0.20em;
+    color: var(--main-color) !important;
+}
+
+/* Card */
+.card {
+    border: 2px solid var(--main-color)  !important;
+    color: var(--sub-text-color) !important;
+    background-color: var(--card-bg-color) !important;
+}
+
+.card-title {
+    color: var(--main-color)  !important;
+}
+
+hr {
+  border: 0;
+  border-top: 2px solid var(--main-color) !important;
+}
+
+.price {
+    color: var(--main-color)  !important;
+    font-weight: 700;
+}
+
+.success-btn {
+    background-color: #20854a !important;
+}
+
+
+/* MODALE */
+.modal-content.custom-style {
+    border: 2px solid var(--main-color) ;
+    color: var(--sub-text-color);
+}
+
+.modal-content.custom-style .modal-header {
+    border-bottom: 1px solid var(--main-color) ;
+    background-color: var(--card-bg-color);
+    color: var(--main-color) ;
+}
+
+.modal-content.custom-style .modal-title {
+    color: var(--main-color) ;
+}
+
+.modal-content.custom-style .modal-body p {
+    color: var(--main-color) ;
+}
+
+.modal-content.custom-style .modal-body {
+    background-color: var(--card-bg-color) ;
+}
+
+.modal-content.custom-style .modal-footer {
+    background-color: var(--card-bg-color);
+    border-top: 1px solid var(--main-color) ;
+}
+
+.modal-content.custom-style .list-group-item {
+    background-color: var(--card-bg-color);
+    color: var(--sub-text-color);
+    border: 1px solid var(--main-color) ;
+}
+
+/* BOTTONI MODALE */
+.send-btn {
+    background-color: var(--main-color)  !important;
+    transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out !important;
+}
+
+.send-btn:hover {
+    background-color: var(--main-color)  !important;
+    color: var(--sub-text-color) !important;
+}
+
+.reset-btn {
+    background-color: #434343 !important;
+    transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out !important;
+}
+
+.reset-btn:hover {
+    background-color: #8e8d8d !important;
+}
+
+/* Bottone Carrello */
+.cart-btn {
+    background-color: rgb(224, 163, 9) !important;
+    z-index: 999;
+}
+
+.cart-btn:hover {
+    background-color: rgb(224, 163, 9) !important;
+}
+
+/* ACCORDION */
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+
+.accordion-item {
+    border: 1px solid var(--main-color)  !important;
+}
+
+
+/* Bottone chiuso */
+.accordion-button.collapsed {
+    background-color: var(--card-bg-color);
+    color: var(--main-color) ;
+}
+
+/* Bottone aperto */
+.accordion-button:not(.collapsed) {
+    background-color: var(--main-color)  !important;
+    color: var(--card-bg-color) !important;
+    font-weight: 600;
+}
+
+.accordion-body {
+    background-color: var(--accordion-body);
+}
+
