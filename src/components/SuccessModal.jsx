@@ -17,7 +17,7 @@ function SuccessModal({ show, onClose }) {
                         <p className='mb-0'>Grazie mille! Il tuo ordine è stato ricevuto e sarà servito al più presto.</p>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn reset-btn" onClick={onClose}>
+                        <button type="button" className="btn send-btn" onClick={onClose}>
                             Chiudi
                         </button>
                     </div>

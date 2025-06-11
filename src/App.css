@@ -6,9 +6,13 @@
     --body-bg-color2: #0f0f0f;
     --card-bg-color: #151515;
     --accordion-body: #222222;
+    --success-btn: #20854a;
+    --reset-btn: #434343;
+    --reset-btn-hover: #8e8d8d;
 }
 /* #c9aa4e */
 
+/* LAYOUT */
 body {
     background: linear-gradient(to bottom, var(--body-bg-color), var(--body-bg-color2) );
     background-repeat: no-repeat;
@@ -22,7 +26,7 @@ h1 {
     color: var(--main-color) !important;
 }
 
-/* Card */
+/* CARD */
 .card {
     border: 2px solid var(--main-color)  !important;
     color: var(--sub-text-color) !important;
@@ -44,9 +48,8 @@ hr {
 }
 
 .success-btn {
-    background-color: #20854a !important;
+    background-color: var(--success-btn) !important;
 }
-
 
 /* MODALE */
 .modal-content.custom-style {
@@ -57,33 +60,33 @@ hr {
 .modal-content.custom-style .modal-header {
     border-bottom: 1px solid var(--main-color) ;
     background-color: var(--card-bg-color);
-    color: var(--main-color) ;
+    color: var(--main-color);
 }
 
 .modal-content.custom-style .modal-title {
-    color: var(--main-color) ;
+    color: var(--main-color);
 }
 
 .modal-content.custom-style .modal-body p {
-    color: var(--main-color) ;
+    color: var(--main-color);
 }
 
 .modal-content.custom-style .modal-body {
-    background-color: var(--card-bg-color) ;
+    background-color: var(--card-bg-color);
 }
 
 .modal-content.custom-style .modal-footer {
     background-color: var(--card-bg-color);
-    border-top: 1px solid var(--main-color) ;
+    border-top: 1px solid var(--main-color);
 }
 
 .modal-content.custom-style .list-group-item {
     background-color: var(--card-bg-color);
     color: var(--sub-text-color);
-    border: 1px solid var(--main-color) ;
+    border: 1px solid var(--main-color);
 }
 
-/* BOTTONI MODALE */
+/* Modale - Bottoni */
 .send-btn {
     background-color: var(--main-color)  !important;
     transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out !important;
@@ -95,22 +98,23 @@ hr {
 }
 
 .reset-btn {
-    background-color: #434343 !important;
+    background-color: var(--reset-btn) !important;
     transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out !important;
 }
 
 .reset-btn:hover {
-    background-color: #8e8d8d !important;
+    background-color: var(--reset-btn-hover) !important;
 }
 
 /* Bottone Carrello */
 .cart-btn {
     background-color: rgb(224, 163, 9) !important;
     z-index: 999;
+    transition: color 0.6s ease-in-out !important;
 }
 
 .cart-btn:hover {
-    background-color: rgb(224, 163, 9) !important;
+    color: var(--sub-text-color) !important;
 }
 
 /* ACCORDION */
@@ -123,13 +127,13 @@ hr {
 }
 
 
-/* Bottone chiuso */
+/* Accordion - Bottone chiuso */
 .accordion-button.collapsed {
     background-color: var(--card-bg-color);
     color: var(--main-color) ;
 }
 
-/* Bottone aperto */
+/* Accordion - Bottone aperto */
 .accordion-button:not(.collapsed) {
     background-color: var(--main-color)  !important;
     color: var(--card-bg-color) !important;

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import CartModal from '../components/CartModal';
 import SuccessModal from '../components/SuccessModal';
+import IngredientModal from '../components/IngredientModal';
 
 const api = import.meta.env.VITE_API_URL;
 
@@ -15,16 +16,27 @@ function OrderPage() {
     const [cart, setCart] = useState([]);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showCartModal, setShowCartModal] = useState(false);
+    const [showIngredientModal, setShowIngredientModal] = useState(false);
+    const [selectedSlug, setSelectedSlug] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
 
     // Richiesta articoli
     useEffect(() => {
-        axios.get(`${api}/api/sellables`).then((res) => {
-            setSellables(res.data.data);
-        })
+
+        axios
+            .get(`${api}/api/sellables`).then((res) => {
+                setSellables(res.data.data);
+            })
             .catch((err) => {
                 console.error('Errore nel caricamento:', err);
                 setSellables([]);
+                setHasError(true);
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
+
     }, []);
 
     // Aggiunta al carrello
@@ -49,35 +61,19 @@ function OrderPage() {
 
     // Rimozione dal carrello
     const handleRemoveFromCart = (idToRemove) => {
-    setCart(prevCart => {
-
-        // Trova l'indice del prodotto nel carrello
-        const itemIndex = prevCart.findIndex(item => item.id === idToRemove);
-
-        // Crea una copia dell'array del carrello
-        const newCart = [...prevCart];
-
-        // Crea una copia dell'oggetto del prodotto che vogliamo modificare
-        const itemToUpdate = { ...newCart[itemIndex] };
-
-        // Decrementa la quantità dell'articolo di uno.
-        itemToUpdate.quantity -= 1;
-
-        // Controlla se la quantità del prodotto e' scesa a zero
-        if (itemToUpdate.quantity <= 0) {
-
-            // Se la quantità e' zero o meno, filtra il carrello per rimuovere completamente l'articolo.
-            return newCart.filter(item => item.id !== idToRemove);
-
-        } else {
-
-            // Se la quantità e' maggiore di zero aggiorna l'articolo
-            newCart[itemIndex] = itemToUpdate;
-            return newCart;
-            
-        }
-    });
-};;
+        setCart(prevCart => {
+            return prevCart.reduce((acc, item) => {
+                if (item.id === idToRemove) {
+                    if (item.quantity - 1 > 0) {
+                        acc.push({ ...item, quantity: item.quantity - 1 });
+                    }
+                } else {
+                    acc.push(item);
+                }
+                return acc;
+            }, []);
+        });
+    };
 
     // Invio ordine al backend
     const handleSubmit = () => {
@@ -104,16 +100,32 @@ function OrderPage() {
             });
     };
 
+    // Mostro ingredienti se ho lo slug
+    const handleShowIngredients = (slug) => {
+        setSelectedSlug(slug);
+        setShowIngredientModal(true);
+    };
+
     // Caricamento
-    if (sellables.length === 0)
+    if (isLoading) {
         return (
             <div className="d-flex justify-content-center align-items-center vh-100">
                 <div className="spinner-border text-warning me-2" role="status"></div>
-                <p className="fs-4 text-light mt-3">Caricamento...</p>
+                <p className="fs-4 text-light mt-3">Caricamento menù...</p>
             </div>
         );
+    }
 
-    // Raggruppa i prodotti per categoria
+    // Errore caricamento
+    if (hasError) {
+        return (
+            <div className="d-flex justify-content-center align-items-center vh-100">
+                <p className="fs-4 text-danger mt-3">Errore nel caricamento del menù. Riprova più tardi.</p>
+            </div>
+        );
+    }
+
+    // Raggruppa i prodotti per categoria quando caricati
     const productsByCategory = sellables.reduce((acc, item) => {
 
         const category = item.category.name;
@@ -130,19 +142,22 @@ function OrderPage() {
 
     // Calcolo numero totale prodotti nel carrello
     const cartCount = cart.reduce((sum, item) => {
-        return sum + item.quantity; 
+        return sum + item.quantity;
     }, 0);
 
     return (
         <>
-
             <div className="container py-4">
+
+                {/* Navbar */}
                 <nav className='d-flex justify-content-center'>
                     <img className="mt-2" src="/img/buvette-logo-tagliato.png" alt="Logo" height="150" />
                 </nav>
 
+                {/* Titolo principale */}
                 <h1 className="my-5 text-center">Lasciatevi ispirare dal nostro menù!</h1>
 
+                {/* Accordion Prodotti */}
                 <div className="accordion" id="menuAccordion">
                     {Object.entries(productsByCategory).map(([categoryName, items], index) => (
                         <div className="accordion-item" key={categoryName}>
@@ -168,7 +183,14 @@ function OrderPage() {
                                     <div className="row g-4">
                                         {items.map((item) => (
                                             <div key={item.id} className="col-12 col-sm-6 col-md-4 col-lg-3">
-                                                <SellableCard sellable={item} onAddToCart={handleAddToCart} />
+
+                                                {/* Card Sellables */}
+                                                <SellableCard
+                                                    sellable={item}
+                                                    onAddToCart={handleAddToCart}
+                                                    onShowIngredients={handleShowIngredients}
+                                                />
+
                                             </div>
                                         ))}
                                     </div>
@@ -178,12 +200,14 @@ function OrderPage() {
                     ))}
                 </div>
 
+                {/* Bottone carrello */}
                 <button
                     className="btn cart-btn position-fixed bottom-0 end-0 m-4"
                     onClick={() => setShowCartModal(true)}
                 >
                     Carrello <FontAwesomeIcon icon={faCartShopping} /> ({cartCount})
                 </button>
+
             </div>
 
             {/* Modale Carrello */}
@@ -199,6 +223,13 @@ function OrderPage() {
             <SuccessModal
                 show={showSuccessModal}
                 onClose={() => setShowSuccessModal(false)}
+            />
+
+            {/* Modale ingredienti */}
+            <IngredientModal
+                slug={selectedSlug}
+                show={showIngredientModal}
+                onClose={() => setShowIngredientModal(false)}
             />
 
         </>
