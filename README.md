@@ -18,22 +18,27 @@ Each table can be assigned a unique QR code, allowing the backend to identify wh
 ### Key Features
 
 1. **Browse Sellable Items:**
+   
    - Users can explore a list of available products, organized by category for easy navigation.
    - Items are displayed in an accordion grouped by categories such as cocktails, beers, and more.
 
 2. **View Item Details:**
+   
    - Each menu item includes details such as a description, price, and list of ingredients.
    - This helps users make informed choices before adding items to the cart.
 
 3. **Manage Shopping Cart:**
+   
    - Users can add items to their cart, adjust quantities or remove items.
    - The cart view displays a summary of selected items and the total price.
 
 4. **Place Orders:**
+   
    - Once ready, users can submit their order. The frontend sends the order data to the backend via an API call.
    - After submission, users receive an on-screen confirmation.
 
 5. **Responsive and User-Friendly UI:**
+   
    - The interface is intuitive and mobile-friendly, accessible from tablets or smartphones (e.g. via a QR code on each table) as well as desktop devices.
 
 By digitalizing the menu and ordering process, this application reduces wait times and errors, and provides a modern touch to the dining experience. All data (menu items, ingredient lists, order processing) is powered by the backend, ensuring that changes made in the back-office (like updating prices or availability) are reflected in real-time on the frontend.
@@ -42,17 +47,30 @@ By digitalizing the menu and ordering process, this application reduces wait tim
 
 ### Technologies Used
 
-- **React:** The core of the front-end is developed in React, leveraging its component-based architecture to build an interactive UI. React’s state and props system is used to manage UI state, and hooks (like `useState`, `useEffect`) manage component logic. This makes the interface reactive to user input and backend data.
+1. **React:**
 
-- **React Router:** Client-side routing is implemented to navigate between different views/pages (for example, a menu list page, an item detail page, a cart page, and an order confirmation page) without full page reloads.
+   - The core of the front-end is developed in React, leveraging its component-based architecture to build an interactive UI. React’s state and props system is used to manage UI state, and hooks (like `useState`, `useEffect`) manage component logic.
+   - This makes the interface reactive to user input and backend data.
 
-- **Axios:** The application uses Axios to retrieve the list of sellable items from the Bar Manager Backend and to send new orders.
+2. **React Router:**
+   
+   - Client-side routing is implemented to navigate between different views/pages (for example, a menu list page, an item detail page, a cart page, and an order confirmation page) without full page reloads.
 
-- **Bootstrap 5:** Used for responsive layout and UI components such as accordion, buttons and modals. It provides a solid design foundation and mobile-first structure.
+3. **Axios:**
+   
+   - The application uses Axios to retrieve the list of sellable items from the Bar Manager Backend and to send new orders.
 
-- **Custom CSS:** Custom styles have been written to personalize the appearance beyond Bootstrap's defaults, enhancing layout, colors, and component visuals as needed.
+4. **Bootstrap 5:**
+   
+   - Used for responsive layout and UI components such as accordion, buttons and modals. It provides a solid design foundation and mobile-first structure.
 
-- **Vite:** Vite is used as the development server and build tool, providing fast hot module replacement (HMR) and optimized production builds.
+5. **Custom CSS:**
+   
+   - Custom styles have been written to personalize the appearance beyond Bootstrap's defaults, enhancing layout, colors, and component visuals as needed.
+
+6. **Vite:**
+   
+   - Vite is used as the development server and build tool, providing fast hot module replacement (HMR) and optimized production builds.
 
 ---
 
